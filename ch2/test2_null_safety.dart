@@ -24,7 +24,7 @@ main() {
   a1 = null;
   a2 = a1 ?? 'world';//world
 
-  //casting... 타입적으로 nullable 이 non-null 의 상위.. 
+  //casting... 타입적으로 nullable 이 non-null 의 상위..
   data2 = data1;//non-null -> nullable : 암시적 캐스팅
   data1 = data2 as int;//nullable -> non-null : 명시적 캐스팅
 
