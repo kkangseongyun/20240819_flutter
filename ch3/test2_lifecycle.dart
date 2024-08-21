@@ -55,5 +55,52 @@ class ChildWidget extends StatefulWidget {
 //WidgetsBindingObserver - app 전체의 lifecycle 을 판단하기 위해서..
 //app 의 화면이 나오거나 나오지 않거나..
 class ChildState extends State<ChildWidget> with WidgetsBindingObserver{
-  
+  //상위에서 전달되는 데이터..
+  int count = 0;
+
+  ChildState(){
+    print('ChildState constructor..');
+  }
+  @override
+  void initState() {
+    super.initState();
+    print('ChildState, initState...');
+    WidgetsBinding.instance.addObserver(this);//app lifecycle event 등록..
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);//이벤트 등록 해제..
+  }
+  //상위에서 관리하는 데이터를 전달받은 경우, 그 데이터가 변경된 경우..
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    //상위의 데이터 획득.. 물론 상위 데이터를 꼭 이 라이프사이클 함수에서 획득해야 하는 것은 아니고..
+    count = Provider.of<int>(context);
+    print('ChildState, didChangeDependencies');
+  }
+  @override
+  Widget build(BuildContext context) {
+    print('ChildState, build');
+    return Text('i am child widget, $count');
+  }
+  //app lifecycle event callback..
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('current app state = $state');
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
